@@ -23,6 +23,10 @@ jobs:
         name: Repo Checkout
         uses: actions/checkout@v3
 
+      - id: pull 
+        name: pull repo
+        run: git pull 
+
       - id: installation
         name: Python Setup & Packages Installation
         uses: actions/setup-python@v4
@@ -39,10 +43,7 @@ jobs:
         run: python3 main.py
         shell: bash 
       
-      - id: pull 
-        name: pull repo
-        run: git pull 
-        
+
       - id: commit
         name: Commit files
         run:
