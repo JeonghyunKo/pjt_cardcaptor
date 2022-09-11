@@ -1,5 +1,5 @@
 ## project CardCaptor
-
+from datetime import datetime
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -106,6 +106,7 @@ for event in event_ls :
     df = pd.concat([df, row], ignore_index = True)
     df = pd.concat([origin_df, df], ignore_index = True)
 
-
+date = datetime.now()
+date = date.strftime('%Y-%m-%d')
 df = df.drop_duplicates(subset = ["date_start", "date_end", "card", "descript", "platform", "detail_date", "detail_card", "detail_desc", "detail_goods", "detail_limit"], keep = "first")
-df.to_csv("ssg_card.csv", index = False, encoding = 'utf-8-sig')
+df.to_csv(f"ssg_card_{date}.csv", index = False, encoding = 'utf-8-sig')
