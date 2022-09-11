@@ -100,8 +100,8 @@ for event in event_ls :
                         }])
     
     
-    df = df.append(row, ignore_index = True)
-    df = pd.concat([df, origin_df], ignore_index = True)
+    df = pd.concat([df, row], ignore_index = True)
+    df = pd.concat([origin_df, df], ignore_index = True)
 
 
 df = df.drop_duplicates(subset = ["date_start", "date_end", "card", "descript", "platform", "detail_date", "detail_card", "detail_desc", "detail_goods", "detail_limit"], keep = "first")
