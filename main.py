@@ -25,7 +25,8 @@ events = soup.find_all(class_ = 'evt_osmu_unit' )
 event_ls = [] 
 for event in events : 
     try : 
-        name = event.find(class_ = 'eo_tit').find("strong").text
+        #이벤트 타이틀에 '카드'가 있는 것만 가져온다 
+        name = event.find(class_ = 'eo_tit').find("strong").text 
         if "카드" in name : 
             event_ls.append(event)
     except : 
@@ -50,12 +51,12 @@ update_dt = datetime.now()
 for event in event_ls : 
     
     #기본정보
-    date_total = event.find(class_ = 'eo_period').text.split(" - ")
-    card = event.find(class_ = 'eo_tit').find("strong").text
-    descript = event.find(class_ = 'desc1').text + " " + event.find(class_ = 'desc2').text
-    platform = event.find(class_ = 'eo_mall').text.replace("\n", "")
+    date_total = event.find(class_ = 'eo_period').text.split(" - ") #기간 
+    card = event.find(class_ = 'eo_tit').find("strong").text #카드사
+    descript = event.find(class_ = 'desc1').text + " " + event.find(class_ = 'desc2').text #설명
+    platform = event.find(class_ = 'eo_mall').text.replace("\n", "") #플랫폼
     
-    #링크타고 들어가서 얻는 디테일 
+    #링크타고 들어가서 얻는 디테일을 위해 event url도 가져온다 
     #아니 왜 링크 유형이 제각각이야 
     event_url = event.find(href=True)["href"]
     if "https://" not in event_url : 
@@ -71,7 +72,8 @@ for event in event_ls :
 
     else : 
         print(r2.status_code)
-        
+
+    #링크 내 디테일 정보     
     try : 
         details = soup.find(class_="ecard_info").find_all("li")
         for d in details : 
