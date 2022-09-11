@@ -3,6 +3,7 @@
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from datetime import datetime 
 
 try : 
     origin_df = pd.read_csv("ssg_card.csv", encoding = 'utf-8-sig')
@@ -41,9 +42,10 @@ df = pd.DataFrame( {"date_start" : []
                     ,"detail_desc" : []
                     ,"detail_goods" : []
                     ,"detail_limit" : []
-                    })
+                    ,"update_dt" : []})
 
 main_url = 'https://www.ssg.com'
+update_dt = datetime.today()
 
 for event in event_ls : 
     
@@ -100,12 +102,12 @@ for event in event_ls :
                         ,"detail_desc" : detail_desc
                         ,"detail_goods" : detail_goods
                         ,"detail_limit" : detail_limit
-                        }]) 
+                        ,"update_dt" : update_dt}]) 
     
     
     df = pd.concat([df, row], ignore_index = True)
     df = pd.concat([origin_df, df], ignore_index = True)
 
 
-df = df.drop_duplicates(subset = ["date_start", "date_end", "card", "descript", "platform", "detail_date", "detail_card", "detail_desc", "detail_goods", "detail_limit"], keep = "first")
+df = df.drop_duplicates(subset = ["date_start", "date_end", "card", "descript", "platform", "detail_date", "detail_card", "detail_desc", "detail_goods", "detail_limit"], keep = "last")
 df.to_csv("ssg_card.csv", index = False, encoding = 'utf-8-sig')
