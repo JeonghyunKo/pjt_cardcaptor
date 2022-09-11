@@ -38,7 +38,11 @@ jobs:
         name: python Excution
         run: python3 main.py
         shell: bash 
-
+      
+      - id: pull 
+        name: pull repo
+        run: git pull 
+        
       - id: commit
         name: Commit files
         run:
