@@ -4,8 +4,11 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-origin_df = pd.read_csv("ssg_card.csv", encoding = 'utf-8-sig')
-len(origin_df)
+try : 
+    origin_df = pd.read_csv("ssg_card.csv", encoding = 'utf-8-sig')
+except :
+    origin_df = pd.DataFrame()
+
 
 url = 'https://www.ssg.com/event/eventMain.ssg' 
 r = requests.get(url)
@@ -97,7 +100,7 @@ for event in event_ls :
                         ,"detail_desc" : detail_desc
                         ,"detail_goods" : detail_goods
                         ,"detail_limit" : detail_limit
-                        }])
+                        }]) 
     
     
     df = pd.concat([df, row], ignore_index = True)
