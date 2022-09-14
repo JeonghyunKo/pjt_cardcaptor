@@ -112,4 +112,5 @@ for event in event_ls :
 
 #date = update_dt.strftime('%Y-%m-%d')
 df = df.drop_duplicates(subset = ["date_start", "date_end", "card", "descript", "platform", "detail_date", "detail_card", "detail_desc", "detail_goods", "detail_limit"], keep = "last")
+df.to_csv(f"ssg_card.csv", index = False, encoding = 'utf-8-sig')
 df.to_csv(f"./results/ssg_card_{update_dt}.csv", index = False, encoding = 'utf-8-sig')
