@@ -7,6 +7,7 @@ from datetime import datetime
 
 try : 
     origin_df = pd.read_csv("ssg_card.csv", encoding = 'utf-8-sig')
+    origin_df.fillna("", inplace = True)
 except :
     origin_df = pd.DataFrame()
 
@@ -111,6 +112,7 @@ for event in event_ls :
     df = pd.concat([origin_df, df], ignore_index = True)
 
 #date = update_dt.strftime('%Y-%m-%d')
+df.fillna("", inplace = True)
 df = df.drop_duplicates(subset = ["date_start", "date_end", "card", "descript", "platform", "detail_date", "detail_card", "detail_desc", "detail_goods", "detail_limit"], keep = "last")
 df.to_csv(f"ssg_card.csv", index = False, encoding = 'utf-8-sig')
 df.to_csv(f"./results/ssg_card_{update_dt}.csv", index = False, encoding = 'utf-8-sig')
